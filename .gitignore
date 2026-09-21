@@ -1,0 +1,8 @@
+baseline/
+main.exe
+main.exe.dSYM/
+*.obj
+my_profile.prof
+output/*.ppm
+output/*.mp4
+output/*.avi
