@@ -59,7 +59,8 @@ void calcColor(unsigned char* toFill,Autonoma* c, Ray ray, unsigned int depth){
    curShape->getColor(toFill, &ambient, &opacity, &reflection, c, Ray(intersect, ray.vector), depth);
    
    double lightData[3];
-   getLight(lightData, c, intersect, curShape->getNormal(intersect), curShape->reversible());
+   Vector shapeNormal = curShape->getNormal(intersect);
+   getLight(lightData, c, intersect, shapeNormal, curShape->reversible());
    toFill[0] = (unsigned char)(toFill[0]*(ambient+lightData[0]*(1-ambient)));
    toFill[1] = (unsigned char)(toFill[1]*(ambient+lightData[1]*(1-ambient)));
    toFill[2] = (unsigned char)(toFill[2]*(ambient+lightData[2]*(1-ambient)));
@@ -73,7 +74,7 @@ void calcColor(unsigned char* toFill,Autonoma* c, Ray ray, unsigned int depth){
          toFill[2]= (unsigned char)(toFill[2]*opacity+col[2]*(1-opacity));        
       }
       if(reflection>1e-6){
-         Vector norm = curShape->getNormal(intersect).normalize();
+         Vector norm = shapeNormal.normalize();
          Vector vec = ray.vector-2*norm*(norm.dot(ray.vector));
          Ray nextRay = Ray(intersect+vec*1E-4, vec);
          calcColor(col, c, nextRay, depth+1);
