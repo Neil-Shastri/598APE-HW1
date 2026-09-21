@@ -18,3 +18,5 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 10 --sl
 RUN ln -s /usr/bin/convert /usr/bin/magick
 
 ENV DEBIAN_FRONTEND=
+
+RUN apt-get -y update && apt-get -y install golang-go graphviz libgoogle-perftools-dev && go install github.com/google/pprof@latest

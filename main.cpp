@@ -13,6 +13,8 @@
 #include<stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <gperftools/profiler.h>
+
 using namespace std;
 
 #include <sys/time.h>
@@ -535,6 +537,7 @@ int main(int argc, const char** argv){
    char command[200];
    
   struct timeval start, end;
+   ProfilerStart("my_profile.prof");
    gettimeofday(&start, NULL);
    for(frame = 0; frame<frameLen; frame++) {
       setFrame(animateFile, MAIN_DATA, frame, frameLen);      
@@ -554,6 +557,7 @@ int main(int argc, const char** argv){
    }
 
    gettimeofday(&end, NULL);
+   ProfilerStop();
    printf("Total time to create images=%0.6f seconds\n", tdiff(&start, &end));
 
    if (frameLen > 1 && toMovie) {

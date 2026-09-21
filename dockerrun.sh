@@ -1,1 +1,1 @@
-docker run -it --security-opt seccomp=unconfined -v "$(pwd):/host" neilas3/598ape /bin/bash
+docker run -p 8000:8000 --security-opt seccomp=unconfined -it -v "$(pwd):/host" neilas3/598ape /bin/bash
