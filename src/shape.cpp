@@ -31,23 +31,6 @@ void Shape::setRoll(double c){
    zsin = sin(roll);
 }
 
-typedef struct {
-   double time;
-   Shape* shape;
-} TimeAndShape;
-
-void insertionSort(TimeAndShape *arr, int n) {
-    for (int i = 1; i < n; ++i) {
-        TimeAndShape key = arr[i];
-        int j = i - 1;
-        while (j >= 0 && arr[j].time > key.time) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
-}
-
 void calcColor(unsigned char* toFill,Autonoma* c, Ray ray, unsigned int depth){
    ShapeNode* t = c->listStart;
    double curTime = inf;
