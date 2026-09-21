@@ -12,6 +12,7 @@ public:
    ImageTexture(unsigned char* data, unsigned int ww, unsigned int hh);
    ImageTexture(unsigned int ww, unsigned int hh);
    ImageTexture(const char* file);
+   ~ImageTexture();
    unsigned char* setColor(unsigned int x, unsigned int y, unsigned char* data);
    unsigned char* setColor(unsigned int x, unsigned int y, unsigned char r, unsigned char g, unsigned char b);
    void readPPM(FILE* f, const char* file);

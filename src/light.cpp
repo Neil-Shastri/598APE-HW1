@@ -33,6 +33,32 @@ Autonoma::Autonoma(const Camera& c, Texture* tex): camera(c){
    skybox = tex;
 }
 
+Light::~Light(){
+   free(color);
+}
+
+Autonoma::~Autonoma(){
+   ShapeNode* s = listStart;
+   while(s!=NULL){
+      ShapeNode* next = s->next;
+      if(s->data!=NULL){
+         delete s->data->texture;
+         delete s->data->normalMap;
+         delete s->data;
+      }
+      free(s);
+      s = next;
+   }
+   LightNode* l = lightStart;
+   while(l!=NULL){
+      LightNode* next = l->next;
+      delete l->data;
+      free(l);
+      l = next;
+   }
+   delete skybox;
+}
+
 void Autonoma::addShape(Shape* r){
    ShapeNode* hi = (ShapeNode*)malloc(sizeof(ShapeNode));
    hi->data = r;

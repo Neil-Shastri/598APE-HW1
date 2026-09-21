@@ -11,6 +11,7 @@ class Light{
    unsigned char* getColor(unsigned char a, unsigned char b, unsigned char c);
    Vector center;
    Light(const Vector & cente, unsigned char* colo);
+   ~Light();
 };
 
 struct LightNode{
@@ -37,6 +38,7 @@ public:
    void removeShape(ShapeNode* s);
    void addLight(Light* s);
    void removeLight(LightNode* s);
+   ~Autonoma();
 };
 
 void getLight(double* toFill, Autonoma* aut, Vector point, Vector norm, unsigned char r);

@@ -1,5 +1,9 @@
 #include "imagetexture.h"
 
+ImageTexture::~ImageTexture(){
+   free(imageData);
+}
+
 void ImageTexture::getColor(unsigned char* toFill, double* am, double *op, double *ref, double x, double y){
    int xi = (int)(x*w), yi = (int)(y*h);
    int p1 = 4*(xi+w*yi);
