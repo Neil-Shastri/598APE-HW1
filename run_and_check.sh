@@ -1,9 +1,15 @@
 #!/bin/bash
-# runs all three programs and then checks the output against the baseline
-# if everything matches the timings are good to use and output/ gets cleared out
-# if something doesn't match output/ is left alone so you can look at it
+# clears out output/ then runs all three programs and checks the frames against baseline/
+# baseline/ is never touched, it's the reference we keep comparing against
+
+if [ ! -d baseline ]; then
+    echo "no baseline directory - make one before using this"
+    exit 1
+fi
 
 log=$(mktemp)
+
+find output -type f ! -name placeholder -delete
 
 ./run_all.sh 2>&1 | tee "$log"
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
@@ -28,4 +34,3 @@ fi
 
 echo
 echo "output matches the baseline, times above are good"
-find output -type f ! -name placeholder -delete

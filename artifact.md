@@ -49,9 +49,10 @@ There are three scripts. `run_all.sh` just runs the three programs back to back.
 ./run_and_check.sh
 ```
 
-It runs everything, compares the frames, and reprints the timings at the end. If the frames
-all match it clears out `output/` and the times are good to use. If anything differs it says
-so, leaves `output/` alone so you can look at what changed, and exits non-zero.
+It wipes `output/` first so nothing old is left around, runs everything, compares the
+frames, and reprints the timings at the end. If anything differs it says so and exits
+non-zero, and `output/` is left there so you can look at what changed. `baseline/` is never
+touched.
 
 The point is that a faster time only counts if the render didn't change. It's easy to make
 this thing faster by accident-breaking it - skipping an intersection test or racing on a
