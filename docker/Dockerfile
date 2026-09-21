@@ -20,3 +20,5 @@ RUN ln -s /usr/bin/convert /usr/bin/magick
 ENV DEBIAN_FRONTEND=
 
 RUN apt-get -y update && apt-get -y install golang-go graphviz libgoogle-perftools-dev && go install github.com/google/pprof@latest
+
+RUN apt-get -y update && apt-get -y install --no-install-recommends valgrind && apt-get clean -y && rm -rf /var/lib/apt/lists/*
