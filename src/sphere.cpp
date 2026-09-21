@@ -17,6 +17,7 @@ bool Sphere::getLightIntersection(Ray ray, double* fill){
       const double root2 = (-B+desc)/(2*A);
    const double time = (root1>0)?root1:root2;
    if(time>=1.) return false;
+   if(texture->fullyOpaque) return true;
    Vector point = ray.point+ray.vector*time;
    double data2 = (center.y-point.y+radius)/(2*radius);
    double data3 = atan2( point.z-center.z, point.x-center.x);

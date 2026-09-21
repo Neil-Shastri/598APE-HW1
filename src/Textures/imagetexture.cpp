@@ -23,6 +23,7 @@ int x,y;
             imageData[total+2]=255;
          }
       }          
+   fullyOpaque = false;
 }
 
 

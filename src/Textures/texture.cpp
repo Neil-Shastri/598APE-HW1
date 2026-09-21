@@ -6,7 +6,7 @@ double interpolate(double a,double b,double x)
    return a*(1.0-f)+b*f;
 }
 
-Texture::Texture(double am, double op, double ref):ambient(am),opacity(op), reflection(ref){}
+Texture::Texture(double am, double op, double ref):ambient(am),opacity(op), reflection(ref), fullyOpaque(op>1-1E-6){}
 
 double fix(double a){
    return a - floor(a);

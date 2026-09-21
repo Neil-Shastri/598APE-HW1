@@ -12,6 +12,8 @@ class Texture{
 public:
 /** from 0 to 1 **/
    double opacity, reflection, ambient;
+   // new flag so reduce fetch
+   bool fullyOpaque;
    Texture(double am, double op, double ref);
    virtual void getColor(unsigned char* toFill, double* am, double *opacity, double *reflection,double x, double y) = 0;
    Texture* clone();
