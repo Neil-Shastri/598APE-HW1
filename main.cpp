@@ -324,10 +324,33 @@ Autonoma* createInputs(const char* inputFile) {
             unsigned int* polys = getTriangles(triangles, num_polygons);
             fclose(triangles);
             Vector offset(off_x, off_y, off_z); 
+            ShapeNode* beforeMesh = MAIN_DATA->listEnd;   // so we can find the first triangle after the loop
             for(int i = 0; i<num_polygons; i++){
                Triangle* shape = new Triangle(points[polys[3*i]] + offset, points[polys[3*i+1]] + offset, points[polys[3*i+2]] + offset, texture);
                MAIN_DATA->addShape(shape);
                shape->normalMap = normalMap;
+            }
+            // make a bounding sphere around the mesh so rays that miss it can skip all the triangles (light.cpp for more info)
+            if(num_polygons>0){
+               // center is just the avg of all the points
+               Vector center(0,0,0);
+               for(int i = 0; i<num_points; i++) center = center + points[i];
+               center = center*(1./num_points) + offset;
+
+
+               // radius is dist to the farthest point
+               double radius = 0;
+               for(int i = 0; i<num_points; i++){
+                  double d = sqrt((points[i] + offset - center).mag2());
+                  if(d>radius) radius = d;
+               }
+               radius += 0.01;   // add a little extra to be safe with floating point stuff in case light is close
+               
+               // save the sphere on the first triangle of the mesh
+               ShapeNode* first = (beforeMesh==NULL) ? MAIN_DATA->listStart : beforeMesh->next;
+               first->meshLast = MAIN_DATA->listEnd;
+               first->boundCenter = center;
+               first->boundRadius = radius;   // this only works becuase the triangles never move (the animate file only moves the camera)
             }
          } else {
            printf("Unknown object type %s\n", object_type);

@@ -67,6 +67,7 @@ void Autonoma::addShape(Shape* r){
    ShapeNode* hi = (ShapeNode*)malloc(sizeof(ShapeNode));
    hi->data = r;
    hi->next = hi->prev = NULL;
+   hi->meshLast = NULL;   // only gets set for mesh nodes (in main.cpp)
    if(listStart==NULL){
       listStart = listEnd = hi;
    }

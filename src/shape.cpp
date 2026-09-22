@@ -36,6 +36,13 @@ void calcColor(unsigned char* toFill,Autonoma* c, Ray ray, unsigned int depth){
    double curTime = inf;
    Shape* curShape = NULL;
    while(t!=NULL){
+      // if this is the start of a mesh and the ray misses the mesh's bounding sphere,
+      // jump past all of its triangels since they would all miss anyway
+      //defined in light.cpp
+      if(t->meshLast!=NULL && !rayNearBound(t, ray.point, ray.vector)){
+         t = t->meshLast->next;
+         continue;
+      }
       double time = t->data->getIntersection(ray);
       if(time < curTime){
          curTime = time;
