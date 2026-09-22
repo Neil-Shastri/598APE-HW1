@@ -1,6 +1,6 @@
 # Artifact
 
-All of our work is on the optimizations branch.
+All of our work is on the optimizations branch. You will need to ssh into the course VM and clone this repo there to start.
 
 ## Setup
 
