@@ -2,6 +2,7 @@
 #include "light.h"
 #include "shape.h"
 #include "camera.h"
+#include <set>
       
 Light::Light(const Vector & cente, unsigned char* colo) : center(cente){
    color = colo;
@@ -38,12 +39,14 @@ Light::~Light(){
 }
 
 Autonoma::~Autonoma(){
+   // mesh triangles all point at the same texture/normalMap, so only delete each one once
+   std::set<Texture*> textures;
    ShapeNode* s = listStart;
    while(s!=NULL){
       ShapeNode* next = s->next;
       if(s->data!=NULL){
-         delete s->data->texture;
-         delete s->data->normalMap;
+         textures.insert(s->data->texture);
+         textures.insert(s->data->normalMap);
          delete s->data;
       }
       free(s);
@@ -56,7 +59,8 @@ Autonoma::~Autonoma(){
       free(l);
       l = next;
    }
-   delete skybox;
+   textures.insert(skybox);
+   for(Texture* tex : textures) delete tex;
 }
 
 void Autonoma::addShape(Shape* r){

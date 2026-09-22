@@ -157,6 +157,7 @@ Texture* parseTexture(FILE* f, bool allowNull) {
          }
       }
       text->opacity = opacity;
+      text->fullyOpaque = (opacity>1-1E-6);
       text->reflection = reflection;
       text->ambient = ambient;
       return text;

@@ -29,9 +29,6 @@ cd /host && make -j
 
 ./main.exe -i inputs/elephant.ray --ppm -a inputs/elephant.animate --movie \
   -F 24 -W 100 -H 100 -o output/sphere.mp4
-
-./main.exe -i inputs/realelephant.ray --ppm -a inputs/elephant.animate --movie \
-  -F 24 -W 100 -H 100 -o output/elephant.mp4
 ```
 
 Output goes to `output/`. Each run prints `Total time to create images=...`, which is the
